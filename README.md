@@ -12,7 +12,7 @@ There are 3 components:
 	- Alerts to abnormal operating conditions
 
 ## AC Watcher
-For my installation, I used an ESP8266 based Wemos D1 Mini Pro. I modified the antenna jumper to utilize the external antenna since the unit was installed in the garage. The Wemos D1 Mini is compact while providing a single ADC to capture current and multiple GPIOs to communicate with Dallas 1-Wire temperature probes.
+For my installation, I used an ESP8266 based Wemos D1 Mini Pro. I modified the antenna jumper to utilize the external antenna since the unit was installed in the garage. The Wemos D1 Mini is compact while providing a single ADC to capture current (is the system running) and multiple GPIOs to communicate with the temperature probes.
 ### BOM
 | Qty | Device                                                     | URL                     |
 | --- | ---------------------------------------------------------- | ----------------------- |
@@ -30,3 +30,10 @@ For my installation, I used an ESP8266 based Wemos D1 Mini Pro. I modified the a
 
 ### Enclosures & Mounts
 It helps significantly to have a 3d printer but you can always used shapeways.com or ask a friend to print these for you.
+
+- [ACWatcher Case](3dfiles/Case.3mf)
+- [ACWatcher Case Lid](3dfiles/Lid.3mf)
+- [Temp Probe Mount](3dfiles/Temp%20Probe%20Holder.3mf)
+<div style="width: 60%; height: 60%">
+![AC Watcher Case](images/acwatcher_case.jpeg)
+</div>

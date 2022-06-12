@@ -1,0 +1,47 @@
+( { EESchema Netlist Version 1.1 created  5/25/2022 7:58:12 PM }
+ ( /95e85462-589a-4d1f-8152-7d34c137ff86 Capacitor_THT:C_Axial_L3.8mm_D2.6mm_P7.50mm_Horizontal  C1 10uF
+  (    1 GND )
+  (    2 Net-(C1-Pad2) )
+ )
+ ( /d52e3e8e-59dd-4eb1-a991-bc23a18f8356 Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal  R1 10K
+  (    1 +3V3 )
+  (    2 Net-(C1-Pad2) )
+ )
+ ( /3003f607-bad4-454f-9f29-328ab9855e36 Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal  R2 10K
+  (    1 Net-(C1-Pad2) )
+  (    2 GND )
+ )
+ ( /48813503-2ca7-4a81-81fc-b6d7d6805a52 Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical  J2 Discharge_Temp_Sensor
+  (    1 GND )
+  (    2 Net-(J1-Pad2) )
+  (    3 +3V3 )
+ )
+ ( /2ee60d3d-f3ad-4840-b83a-d634f20d03c2 Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical  J1 Intake_Temp_Sensor
+  (    1 GND )
+  (    2 Net-(J1-Pad2) )
+  (    3 +3V3 )
+ )
+ ( /00000000-0000-0000-0000-0000628dda74 Connector_Audio:Jack_3.5mm_CUI_SJ1-3533NG_Horizontal  J3 CT_Clamp
+  (    1 Net-(J3-Pad1) )
+  (    2 Net-(C1-Pad2) )
+ )
+ ( /00000000-0000-0000-0000-0000628dad5f Module:WEMOS_D1_mini_light  U1 WeMos_D1_mini
+  (    1 unconnected-(U1-Pad1) )
+  (    2 Net-(J3-Pad1) )
+  (    3 unconnected-(U1-Pad3) )
+  (    4 unconnected-(U1-Pad4) )
+  (    5 unconnected-(U1-Pad5) )
+  (    6 unconnected-(U1-Pad6) )
+  (    7 unconnected-(U1-Pad7) )
+  (    8 +3V3 )
+  (    9 Net-(U1-Pad9) )
+  (   10 GND )
+  (   11 Net-(J1-Pad2) )
+  (   12 unconnected-(U1-Pad12) )
+  (   13 unconnected-(U1-Pad13) )
+  (   14 unconnected-(U1-Pad14) )
+  (   15 unconnected-(U1-Pad15) )
+  (   16 unconnected-(U1-Pad16) )
+ )
+)
+*
