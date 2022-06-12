@@ -35,7 +35,7 @@ As an Amazon Associate I earn from qualifying purchases. I get commissions for p
 NEVER WORK WITH LIVE VOLTAGE. Always disconnect the power source before working with electrical circuits.
 
 ## AC Watcher
-For my installation, I used an ESP8266 based Wemos D1 Mini Pro. I modified the antenna jumper to utilize the external antenna since the unit was installed in the garage. The Wemos D1 Mini is compact while providing a single ADC to capture current (is the system running) and multiple GPIOs to communicate with the temperature probes.
+For my installation, I used an ESP8266 based Wemos D1 Mini Pro. I [modified](https://youtu.be/hXRcJXMjlyg?t=111) the antenna jumper to utilize the external antenna since the unit was installed in the garage. The Wemos D1 Mini is compact while providing a single ADC to capture current (is the system running) and multiple GPIOs to communicate with the temperature probes.
 ### BOM
 | Qty | Device                                                     | URL                     |
 | --- | ---------------------------------------------------------- | ----------------------- |
