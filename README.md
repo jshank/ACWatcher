@@ -29,11 +29,148 @@ For my installation, I used an ESP8266 based Wemos D1 Mini Pro. I modified the a
 **Tools**: Soldering iron, solder, shrink tubing and wires
 
 ### Enclosures & Mounts
+<img src="images/acwatcher_case.jpeg" width=300 align=right>
 It helps significantly to have a 3d printer but you can always used shapeways.com or ask a friend to print these for you.
 
 - [ACWatcher Case](3dfiles/Case.3mf)
 - [ACWatcher Case Lid](3dfiles/Lid.3mf)
-- [Temp Probe Mount](3dfiles/Temp%20Probe%20Holder.3mf)
-<div style="width: 60%; height: 60%">
-![AC Watcher Case](images/acwatcher_case.jpeg)
-</div>
+- 2 x [Temp Probe Mount](3dfiles/Temp%20Probe%20Holder.3mf)
+
+### Assembly
+Follow the diagram below to solder the main part into the perf board, making sure you adhere to the schematic.
+
+**Schematic Wiring Diagram (From below)**
+
+<img src="images/acwatcher_perf_wiring_diagram.png" width=600>
+
+*I installed the capacitor and resistors on the top side of the board*
+
+
+**ACWatcher Schematic**
+
+<img src="images/acwatcher_schematic.png" width=600>
+
+Make sure to check all of your connections with a multimeter before you put it in the case. I also recommend getting ESPHome installed and working before putting it in the enclosure.
+
+## ESPHome
+
+Installing and configuring ESPHome is beyond the scope of this article, check out the great documentation over at https://esphome.io/
+
+### Full configuration
+Use the following configuration for your device replacing the wifi_ssid and password as well as your own IP ranges.
+
+```
+esphome:
+  name: acwatcher
+
+esp8266:
+  board: d1_mini_pro
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "generated_by_the_system"
+
+ota:
+  password: "generated_by_the_system"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:
+    static_ip: 10.1.12.239
+    gateway: 10.1.12.1
+    subnet: 255.255.255.0
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Acwatcher Fallback Hotspot"
+    password: "generated_by_the_system"
+
+captive_portal:
+
+dallas:
+  - pin: D4
+  
+# Individual sensors
+sensor:
+  - platform: dallas
+    address: 0x51000005d3a58b28 # Replace with your address
+    id: discharge_temp
+    name: "Discharge Temperature"
+    filters:
+      - lambda: return x * (9.0/5.0) + 32.0;
+    unit_of_measurement: "°F"
+    
+  - platform: dallas
+    address: 0x0e000005d3516128 # Replace with your address
+    id: intake_temp
+    name: "Intake Temperature"
+    # Green band
+    filters:
+      - lambda: return x * (9.0/5.0) + 32.0;
+    unit_of_measurement: "°F"
+    
+  - platform: ct_clamp
+    sensor: adc_sensor
+    id: hvac_current
+    name: "HVAC Current"
+    update_interval: 1s
+    filters:
+      - calibrate_linear:
+        - 0 -> 0
+        - 0.052 -> 4.3
+    
+  - platform: adc
+    pin: A0
+    id: adc_sensor
+    
+  - platform: template
+    name: "Delta T"
+    id: temp_delta_t
+    update_interval: 60s
+    unit_of_measurement: "°F"
+    lambda: |-
+      return (id(intake_temp).state - id(discharge_temp).state);
+
+    
+binary_sensor:
+  - platform: template
+    name: "HVAC State"
+    lambda: |-
+      if (id(hvac_current).state > 2) {
+        return true;
+      } else {
+        return false;
+      }
+```
+
+### Finding the temperature sensor addresses
+Connect the temperature probes to the screw terminals and then power up the ACWatcher with a USB connection that allows you to view the debug logs. Shorly after startup, you should see 2 different device addresses. You will replace my device addresses with your own:
+
+```
+[20:05:51][C][dallas.sensor:075]: DallasComponent:
+[20:05:51][C][dallas.sensor:076]:   Pin: GPIO2
+[20:05:51][C][dallas.sensor:077]:   Update Interval: 60.0s
+[20:05:51][D][dallas.sensor:082]:   Found sensors:
+[20:05:51][D][dallas.sensor:084]:     0x0e000005d3516128 <--Here is the address of the temp sensor!
+[20:05:51][D][dallas.sensor:084]:     0x51000005d3a58b28 <--Here is the address of the other temp sensor!
+```
+
+Replace the addresses and then restart again. Make sure you know which one is which. I used a piece of green shrink wrap on one and black on the other to differentiate. You can always just swap the addresses in the configuration if you get it wrong. 
+
+At this point, you can insert the intake probe through the space where your air filter goes. You can use some electrical tape to temporarily attach the discharge probe to the vent, about 2-ft above the cooling coils. Power up your ACWatcher and watch the output in the logs to confirm you are seeing a decent difference in temperature while running the system. 
+### Calibrating the CT Clamp 
+Follow the excellent tutorial at https://esphome.io/components/sensor/ct_clamp.html#calibration for calibrating your CT Clamp. I recommend starting with a known good load (like a incandescent lightbulb) to calibrate your clamp. Precision isn't very important since we're only interested in finding out if the device is on or off.
+
+<img src="images/hvac%20wiring.jpeg" width=600 align=right>
+Now that the clamp is calibrated. Open up your HVAC service cover and look inside for the electrical wiring. Look for the black wire, which should be thicker and clip the CT Clamp around it. Once again, check the logger output from ESPHome to make sure you are seeing an increase in current when the blower turns-on.
+
+## Temperature Probes
+I took a queue from the Honeywell HZ322 controller and designed a temperature probe similar to their solution. 3d print two of the [temperature probe holders](3dfiles/Temp%20Probe%20Holder.3mf). Make sure the holes are clear using a drill bit because you will want the **Stainless Steel Straw** to fit tightly. Depending on the depth of your vent, you may want to cut down the straw using a [tubing cutter](https://amzn.to/3Hf0BYM). If you do cut to tube, make sure to clean up the ends so you don't cut the cable while feeding it through. Next, press the straw into the temperature probe holder. Once I had it started, I placed the straw end flat on my work bench and pressed down hard until it was seated. Now feed the temperature probe through the straw and out the smaller hole in the back of the temperature probe holder. The finished product should look something like this.  
+<img src="images/temp_probe.jpeg" width=600>
+
+If everything looks correct, draw the temperature probe cabling into the body of the straw and then put another piece of shrink tubing on to stabilize the probe. Here is a view of the fully assembled probe, from inside the air return space. <img src="images/intake_probe_inside.jpeg" width=600>
