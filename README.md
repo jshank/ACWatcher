@@ -11,6 +11,29 @@ There are 3 components:
 	- Tracks historical performance
 	- Alerts to abnormal operating conditions
 
+## Table of Contents
+- [Solution to monitor the performance of an HVAC system](#solution-to-monitor-the-performance-of-an-hvac-system)
+  - [Table of Contents](#table-of-contents)
+  - [Disclaimers and Legal Stuff First](#disclaimers-and-legal-stuff-first)
+  - [AC Watcher](#ac-watcher)
+    - [BOM](#bom)
+    - [Enclosures & Mounts](#enclosures--mounts)
+    - [Assembly](#assembly)
+  - [ESPHome](#esphome)
+    - [Full configuration](#full-configuration)
+    - [Finding the temperature sensor addresses](#finding-the-temperature-sensor-addresses)
+    - [Calibrating the CT Clamp](#calibrating-the-ct-clamp)
+  - [Temperature Probes](#temperature-probes)
+    - [Temperature Probe Installation](#temperature-probe-installation)
+    - [Final Mounting](#final-mounting)
+  - [Home Assistant](#home-assistant)
+  - [Possible Improvements](#possible-improvements)
+
+## Disclaimers and Legal Stuff First
+As an Amazon Associate I earn from qualifying purchases. I get commissions for purchases made through links in this post. Working with electricity is dangerous and can cause personal injury or DEATH as well as other property loss or damage if not used or constructed properly. If you have any doubts whatsoever about performing do-it-yourself electrical work, PLEASE do the smart thing and hire a QUALIFIED SPECIALIST to perform the work for you.
+
+NEVER WORK WITH LIVE VOLTAGE. Always disconnect the power source before working with electrical circuits.
+
 ## AC Watcher
 For my installation, I used an ESP8266 based Wemos D1 Mini Pro. I modified the antenna jumper to utilize the external antenna since the unit was installed in the garage. The Wemos D1 Mini is compact while providing a single ADC to capture current (is the system running) and multiple GPIOs to communicate with the temperature probes.
 ### BOM
