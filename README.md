@@ -154,7 +154,7 @@ sensor:
     filters:
       - calibrate_linear:
         - 0 -> 0
-        - 0.052 -> 4.3
+        - 0.052 -> 4.3 # Replace with your CT clamp calibration 
     
   - platform: adc
     pin: A0
