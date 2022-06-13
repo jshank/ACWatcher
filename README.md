@@ -67,7 +67,9 @@ Follow the diagram below to solder the main part into the perf board, making sur
 
 <img src="images/acwatcher_perf_wiring_diagram.png" width=600>
 
-*I installed the capacitor and resistors on the top side of the board*
+**Top of perf board**
+
+<img src="images/acwatcher_perf_top.jpeg" width=600>
 
 
 **ACWatcher Schematic**
