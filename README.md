@@ -116,6 +116,12 @@ wifi:
 
 captive_portal:
 
+globals:
+   - id: hvac_on_threshold
+     type: float
+     restore_value: no
+     initial_value: '2.00' # Update this to ~1/2 the amperage of the ON value of your HVAC
+
 dallas:
   - pin: D4
   
@@ -165,7 +171,7 @@ binary_sensor:
   - platform: template
     name: "HVAC State"
     lambda: |-
-      if (id(hvac_current).state > 2) {
+      if (id(hvac_current).state > id(hvac_on_threshold)) {
         return true;
       } else {
         return false;
