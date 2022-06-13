@@ -1,4 +1,3 @@
-**I'm missing a 4.7k resistor for the Dallas sensors between 3.3v and Wemos pin D4. I'll remove this once the design is updated.**
 # Solution to monitor the performance of an HVAC system
 HVAC continues to be one of the highest energy devices in our household yet even the more advanced systems don't contain monitoring or alerting components to let you know when something isn't working correctly. This can be both frustrating and costly. Modern cooling systems will run the fan and compressor continuously, even if they aren't working properly. This solution aims to provide a simple and cost effective way of monitoring the performance of your system and alerting you when there are problems. 
 
@@ -46,6 +45,7 @@ For my installation, I used an ESP8266 based Wemos D1 Mini Pro. I [modified](htt
 | 1   | YHDC Split Core Current Transformer Non-invasive SCT013-03 | https://amzn.to/3aVo3OQ |
 | 1   | 40x60mm Perf Board                                         | https://amzn.to/39kikS4 |
 | 2   | 10kOhm  1/4 Watt THT Resistors                             | https://amzn.to/3NIqNxz |
+| 1   | 4.7kOhm  1/4 Watt THT Resistors                            | https://amzn.to/3zBT1G6 |
 | 1   | 10uF 25v Electrolytic Capacitor                            | https://amzn.to/3xj8AQ9 |
 | 2   | 3-pin PCB mount 5mm terminal block connectors              | https://amzn.to/3O9zOzy |
 | 1   | 3.5mm female jack breakout board                           | https://amzn.to/3tssQgU | 
