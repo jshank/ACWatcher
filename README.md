@@ -1,3 +1,4 @@
+**I'm missing a 4.7k resistor for the Dallas sensors between 3.3v and Wemos pin D4. I'll remove this once the design is updated.**
 # Solution to monitor the performance of an HVAC system
 HVAC continues to be one of the highest energy devices in our household yet even the more advanced systems don't contain monitoring or alerting components to let you know when something isn't working correctly. This can be both frustrating and costly. Modern cooling systems will run the fan and compressor continuously, even if they aren't working properly. This solution aims to provide a simple and cost effective way of monitoring the performance of your system and alerting you when there are problems. 
 
