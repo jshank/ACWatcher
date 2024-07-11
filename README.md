@@ -101,7 +101,8 @@ api:
     key: "generated_by_the_system"
 
 ota:
-  password: "generated_by_the_system"
+  - platform: esphome
+    password: "generated_by_the_system"
 
 wifi:
   ssid: !secret wifi_ssid
@@ -124,12 +125,13 @@ globals:
      restore_value: no
      initial_value: '2.00' # Update this to ~1/2 the amperage of the ON value of your HVAC
 
-dallas:
-  - pin: D4
+one_wire:
+  - platform: gpio
+    pin: D4
   
 # Individual sensors
 sensor:
-  - platform: dallas
+  - platform: dallas_temp
     address: 0x51000005d3a58b28 # Replace with your address
     id: discharge_temp
     name: "Discharge Temperature"
@@ -137,7 +139,7 @@ sensor:
       - lambda: return x * (9.0/5.0) + 32.0;
     unit_of_measurement: "°F"
     
-  - platform: dallas
+  - platform: dallas_temp
     address: 0x0e000005d3516128 # Replace with your address
     id: intake_temp
     name: "Intake Temperature"
